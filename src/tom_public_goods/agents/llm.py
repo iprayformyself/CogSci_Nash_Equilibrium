@@ -11,6 +11,45 @@ from ..utils import clamp_float, clamp_int, extract_json_object, safe_mean
 from .base import BaseAgent
 from .belief import BeliefBasedAgent
 
+def _call_llm(self, prompt: str, config: GameConfig) -> str:
+    if config.llm_provider == "openai":
+        return self._call_openai(prompt, config)
+    if config.llm_provider == "groq":
+        return self._call_groq(prompt, config)
+    raise ValueError(f"Unsupported LLM provider: {config.llm_provider}")
+
+def _get_groq_client(self):
+    try:
+        from groq import Groq  # type: ignore
+    except Exception as exc:
+        raise RuntimeError("The groq package is not installed. Install it with: pip install groq") from exc
+
+    return Groq()
+
+def _call_groq(self, prompt: str, config: GameConfig) -> str:
+    client = self._get_groq_client()
+
+    system_message = (
+        "You are a decision-making agent in a controlled Cognitive Science experiment. "
+        "Return valid JSON only. Do not use markdown. Do not reveal private chain-of-thought. "
+        "Use a concise reasoning_summary field instead."
+    )
+
+    response = client.chat.completions.create(
+        model=config.model,
+        messages=[
+            {"role": "system", "content": system_message},
+            {"role": "user", "content": prompt},
+        ],
+        temperature=0.2,
+        max_completion_tokens=config.max_output_tokens,
+        response_format={"type": "json_object"},
+    )
+
+    content = response.choices[0].message.content
+    if not content:
+        raise RuntimeError("Groq returned an empty response.")
+    return content
 
 class LLMAgent(BaseAgent):
     """
@@ -47,7 +86,7 @@ class LLMAgent(BaseAgent):
         last_error = ""
         for attempt in range(1, config.max_retries + 1):
             try:
-                raw = self._call_openai(prompt, config)
+                raw = self._call_llm(prompt, config)
                 parsed = extract_json_object(raw)
                 return self._parse_decision(parsed, raw, agent_ids, config)
             except Exception as exc:

@@ -16,6 +16,7 @@ def parse_args(argv: Sequence[str] | None = None) -> GameConfig:
     parser = argparse.ArgumentParser(
         description="Scalable Theory-of-Mind Public Goods Game simulator with optional LLM agents."
     )
+    
     parser.add_argument(
         "--condition",
         default="baseline",
@@ -42,6 +43,7 @@ def parse_args(argv: Sequence[str] | None = None) -> GameConfig:
         help="Max number of other agents shown to each LLM for prediction.",
     )
     parser.add_argument("--use-llm", action="store_true", help="Actually call the OpenAI API for LLM agents.")
+    parser.add_argument("--provider", default="groq", choices=["openai", "groq"], help="LLM API provider.")
     parser.add_argument("--llm-agents", type=int, default=0, help="Number of LLM agents in mixed LLM conditions.")
     parser.add_argument("--model", default="gpt-4o-mini", help="OpenAI model name for LLM agents.")
     parser.add_argument("--max-retries", type=int, default=3, help="Max retries per LLM call.")
@@ -79,6 +81,7 @@ def parse_args(argv: Sequence[str] | None = None) -> GameConfig:
         max_output_tokens=args.max_output_tokens,
         output_dir=args.output_dir,
         on_llm_error=args.on_llm_error,
+        llm_provider=args.provider
     )
     config.validate()
     return config
@@ -91,13 +94,17 @@ def main(argv: Sequence[str] | None = None) -> None:
     print(json.dumps(asdict(config), ensure_ascii=False, indent=2))
 
     if "llm" in config.condition and config.use_llm:
-        if not os.getenv("OPENAI_API_KEY"):
-            raise RuntimeError(
-                "OPENAI_API_KEY is not set. Set it before using --use-llm. "
-                "On Windows PowerShell: $env:OPENAI_API_KEY='your_key_here'"
-            )
-    elif "llm" in config.condition and not config.use_llm:
-        print("LLM condition selected, but --use-llm is not set. LLM agents will use local fallback behavior.")
+    if config.llm_provider == "openai" and not os.getenv("OPENAI_API_KEY"):
+        raise RuntimeError(
+            "OPENAI_API_KEY is not set. "
+            "On Windows PowerShell: $env:OPENAI_API_KEY='your_key_here'"
+        )
+
+    if config.llm_provider == "groq" and not os.getenv("GROQ_API_KEY"):
+        raise RuntimeError(
+            "GROQ_API_KEY is not set. "
+            "On Windows PowerShell: $env:GROQ_API_KEY='your_key_here'"
+        )
 
     sim = PublicGoodsSimulation(config)
     sim.run()

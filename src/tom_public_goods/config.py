@@ -17,13 +17,16 @@ class GameConfig:
     prediction_sample_size: int = 12
     use_llm: bool = False
     llm_agents: int = 0
-    model: str = "gpt-4o-mini"
+    llm_provider: str = "groq"
+    model: str = "llama-3.3-70b-versatile"
     max_retries: int = 3
     output_dir: str = "results"
     on_llm_error: str = "fallback"  # fallback or raise
     max_output_tokens: int = 900
 
     def validate(self) -> None:
+        if self.llm_provider not in {"openai", "groq"}:
+            raise ValueError("llm_provider must be either 'openai' or 'groq'")
         if self.num_agents < 2:
             raise ValueError("num_agents must be at least 2")
         if self.rounds < 1:
