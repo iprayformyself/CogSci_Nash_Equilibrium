@@ -94,11 +94,11 @@ def main(argv: Sequence[str] | None = None) -> None:
     print(json.dumps(asdict(config), ensure_ascii=False, indent=2))
 
     if "llm" in config.condition and config.use_llm:
-    if config.llm_provider == "openai" and not os.getenv("OPENAI_API_KEY"):
-        raise RuntimeError(
-            "OPENAI_API_KEY is not set. "
-            "On Windows PowerShell: $env:OPENAI_API_KEY='your_key_here'"
-        )
+        if config.llm_provider == "openai" and not os.getenv("OPENAI_API_KEY"):
+            raise RuntimeError(
+                "OPENAI_API_KEY is not set. "
+                "On Windows PowerShell: $env:OPENAI_API_KEY='your_key_here'"
+            )
 
     if config.llm_provider == "groq" and not os.getenv("GROQ_API_KEY"):
         raise RuntimeError(

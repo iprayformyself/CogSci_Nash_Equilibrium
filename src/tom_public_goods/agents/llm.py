@@ -18,17 +18,6 @@ def _call_llm(self, prompt: str, config: GameConfig) -> str:
         return self._call_groq(prompt, config)
     raise ValueError(f"Unsupported LLM provider: {config.llm_provider}")
 
-def _get_groq_client(self):
-    try:
-        from groq import Groq  # type: ignore
-    except Exception as exc:
-        raise RuntimeError("The groq package is not installed. Install it with: pip install groq") from exc
-
-    return Groq()
-
-def _call_groq(self, prompt: str, config: GameConfig) -> str:
-    client = self._get_groq_client()
-
     system_message = (
         "You are a decision-making agent in a controlled Cognitive Science experiment. "
         "Return valid JSON only. Do not use markdown. Do not reveal private chain-of-thought. "
@@ -119,6 +108,17 @@ class LLMAgent(BaseAgent):
             max_output_tokens=config.max_output_tokens,
         )
         return response.output_text
+
+    def _get_groq_client(self):
+        try:
+            from groq import Groq  # type: ignore
+        except Exception as exc:
+            raise RuntimeError("The groq package is not installed. Install it with: pip install groq") from exc
+
+        return Groq()
+
+    def _call_groq(self, prompt: str, config: GameConfig) -> str:
+        client = self._get_groq_client()
 
     def _build_prompt(self, history: list[dict[str, Any]], agent_ids: list[str], config: GameConfig) -> str:
         recent_summary = summarize_recent_rounds(history, config.memory_window)
