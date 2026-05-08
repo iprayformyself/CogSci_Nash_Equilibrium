@@ -1,0 +1,108 @@
+This repository contains a scalable multi-agent simulation for a Cognitive Science research project on **functional Theory of Mind in LLM agents**.
+---
+
+## Experimental conditions
+
+| Condition | Description | API cost |
+|---|---|---:|
+| `baseline` | Rule-based agents only | Free |
+| `belief_mixed` | Belief-based cognitive agents + rule-based agents | Free |
+| `llm_notom_mixed` | Mixed population with LLM agents, no explicit Theory-of-Mind prompt | Paid only with `--use-llm` |
+| `llm_tom_mixed` | Mixed population with LLM agents and explicit belief/intention modeling | Paid only with `--use-llm` |
+| `llm_notom_full` | All agents are LLM agents without explicit ToM prompt | Paid only with `--use-llm` |
+| `llm_tom_full` | All agents are LLM agents with explicit ToM prompt | Paid only with `--use-llm` |
+
+By default, LLM conditions use a **local fallback** unless you pass `--use-llm`. This prevents accidental API spending.
+
+---
+## Installation
+
+### 1. Clone or download the project
+
+```bash
+git clone https://github.com/YOUR_USERNAME/tom-llm-public-goods.git
+cd tom-llm-public-goods
+```
+
+### 2. Create a virtual environment
+
+Windows PowerShell:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+macOS/Linux:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -e .
+```
+
+For testing:
+
+```bash
+pip install -e .[dev]
+```
+
+---
+
+## Free local runs
+
+These commands do **not** call the OpenAI API.
+
+```bash
+python main.py --condition baseline --agents 30 --rounds 200
+```
+
+```bash
+python main.py --condition belief_mixed --agents 30 --rounds 200
+```
+
+You can also run from JSON config files:
+
+```bash
+python scripts/run_from_config.py configs/baseline.json
+python scripts/run_from_config.py configs/belief_mixed.json
+```
+
+---
+### Main CSV files
+
+| File | Purpose |
+|---|---|
+| `events.csv` | One row per agent per round: contribution, payoff, agent type, reasoning summary |
+| `predictions.csv` | One row per prediction: predicted contribution, actual contribution, absolute error |
+| `round_summary.csv` | Round-level averages: contribution, payoff, prediction error |
+| `agent_summary.csv` | Agent-level aggregate behavior |
+| `condition_summary.csv` | Whole-run aggregate metrics |
+
+---
+
+## Main metrics
+
+### Average contribution
+
+Measures cooperation.
+
+### Average payoff
+
+Measures strategic success.
+
+### Average prediction error
+
+Main Theory-of-Mind metric:
+
+```text
+absolute_error = abs(predicted_contribution - actual_contribution)
+```
+
+Lower prediction error means better behavioral modeling of other agents.
+
