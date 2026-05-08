@@ -1,0 +1,2 @@
+[console_scripts]
+tom-public-goods = tom_public_goods.cli:main
