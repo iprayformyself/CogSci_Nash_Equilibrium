@@ -1,0 +1,14 @@
+[
+  {
+    "round_id": 1,
+    "agent_id": "A001",
+    "agent_type": "LLMAgent_notom",
+    "raw_response": "{\n  \"own_contribution\": 5,\n   \"predictions\": [\n   ],\n   \"reasoning_summary\": \"Given no history, I'm making a moderate initial contribution to balance individual and group welfare. I'm not making predictions about other agents due to lack of information.\"\n}"
+  },
+  {
+    "round_id": 54,
+    "agent_id": "A002",
+    "agent_type": "LLMAgent_notom",
+    "raw_response": "{\n  \"own_contribution\": 6,\n   \"predictions\": [\n       {\n           \"target_agent_id\": \"A010\",\n           \"predicted_contribution\": 9.5,\n           \"confidence\": 0.8,\n           \"inferred_type\": \"\",\n           \"inferred_belief\": \"\"\n       },\n       {\n           \"target_agent_id\": \"A011\",\n           \"predicted_contribution\": 0.5,\n           \"confidence\": 0.7,\n           \"inferred_type\": \"\",\n           \"inferred_belief\": \"\"\n       }\n   ],\n   \"reasoning_summary\": \"Contribution based on group trend stability and own recent behavior. Predictions for specific agents are based on their recent contribution patterns.\"\n}"
+  }
+]

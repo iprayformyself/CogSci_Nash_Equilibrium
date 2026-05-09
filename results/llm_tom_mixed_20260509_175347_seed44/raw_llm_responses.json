@@ -1,0 +1,14 @@
+[
+  {
+    "round_id": 7,
+    "agent_id": "A003",
+    "agent_type": "LLMAgent_tom",
+    "raw_response": "{\n  \"own_contribution\": 7,\n   \"predictions\": [\n       {\n           \"target_agent_id\": \"A010\",\n           \"predicted_contribution\": 9.5,\n           \"confidence\": 0.9,\n           \"inferred_type\": \"cooperative\",\n           \"inferred_belief\": \"group is cooperative\"\n       },\n       {\n           \"target_agent_id\": \"A011\",\n           \"predicted_contribution\": 0,\n           \"confidence\": 0.8,\n           \"inferred_type\": \"self-interested\",\n           \"inferred_belief\": \"group is non-cooperative\"\n       },\n       {\n           \"target_agent_id\": \"A022\",\n           \"predicted_contribution\": 9,\n           \"confidence\": 0.85,\n           \"inferred_type\": \"cooperative\",\n           \"inferred_belief\": \"group is cooperative\"\n       },\n       {\n           \"target_agent_id\": \"A012\",\n           \"predicted_contribution\": 6,\n           \"confidence\": 0.7,\n           \"inferred_type\": \"conditional/adaptive\",\n           \"inferred_belief\": \"group is conditionally cooperative\"\n       }\n   ],\n   \"reasoning_summary\": \"Based on the provided data, I inferred the types of the sampled agents and their likely beliefs about the group, then predicted their next contributions. I chose my own contribution to optimize long-run payoff, considering the group's stable cooperation trend and the presence of both cooperative and self-interested agents.\"\n}"
+  },
+  {
+    "round_id": 62,
+    "agent_id": "A005",
+    "agent_type": "LLMAgent_tom",
+    "raw_response": "{\n  \"own_contribution\": 7,\n   \"predictions\": [\n       {\n           \"target_agent_id\": \"A029\",\n           \"predicted_contribution\": 2,\n           \"confidence\": 0.8,\n           \"inferred_type\": \"self-interested\",\n           \"inferred_belief\": \"group will contribute little\"\n       },\n       {\n           \"target_agent_id\": \"A010\",\n           \"predicted_contribution\": 9,\n           \"confidence\": 0.9,\n           \"inferred_type\": \"cooperative\",\n           \"inferred_belief\": \"group will contribute highly\"\n       },\n       {\n           \"target_agent_id\": \"A018\",\n           \"predicted_contribution\": 4,\n           \"confidence\": 0.7,\n           \"inferred_type\": \"conditional/adaptive\",\n           \"inferred_belief\": \"group will contribute moderately\"\n       }\n   ],\n   \"reasoning_summary\": \"Based on the recent behavior and labels of other agents, I inferred their types and predicted their next contributions. I chose my own contribution to balance cooperation and self-interest, considering the group's stable cooperation trend and my own recent average contribution.\"\n}"
+  }
+]

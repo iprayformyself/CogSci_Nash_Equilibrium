@@ -1,0 +1,2 @@
+condition,num_agents,rounds,llm_agents,use_llm,model,average_contribution,std_contribution,average_payoff,std_payoff,average_prediction_error,num_predictions,num_api_errors,final_round_average_contribution
+llm_tom_mixed,30,80,6,True,llama-3.3-70b-versatile,5.2988,2.4547,13.1793,2.4455,0.9897,23149,478,5.7333

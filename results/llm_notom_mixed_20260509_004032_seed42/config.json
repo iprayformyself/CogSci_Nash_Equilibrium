@@ -1,0 +1,18 @@
+{
+  "condition": "llm_notom_mixed",
+  "num_agents": 30,
+  "rounds": 80,
+  "endowment": 10,
+  "multiplier": 1.6,
+  "seed": 42,
+  "memory_window": 8,
+  "prediction_sample_size": 12,
+  "use_llm": true,
+  "llm_agents": 6,
+  "llm_provider": "groq",
+  "model": "llama-3.3-70b-versatile",
+  "max_retries": 3,
+  "output_dir": "results",
+  "on_llm_error": "fallback",
+  "max_output_tokens": 900
+}

@@ -1,0 +1,2 @@
+condition,num_agents,rounds,llm_agents,use_llm,model,average_contribution,std_contribution,average_payoff,std_payoff,average_prediction_error,num_predictions,num_api_errors,final_round_average_contribution
+baseline,30,200,0,False,,4.8727,2.8369,12.9236,2.8282,,0,0,5.2333

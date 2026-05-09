@@ -1,0 +1,14 @@
+[
+  {
+    "round_id": 30,
+    "agent_id": "A005",
+    "agent_type": "LLMAgent_notom",
+    "raw_response": "{\n  \"own_contribution\": 6,\n   \"predictions\": [\n       {\n           \"target_agent_id\": \"A022\",\n           \"predicted_contribution\": 9,\n           \"confidence\": 0.8,\n           \"inferred_type\": \"\",\n           \"inferred_belief\": \"\"\n       },\n       {\n           \"target_agent_id\": \"A028\",\n           \"predicted_contribution\": 7,\n           \"confidence\": 0.7,\n           \"inferred_type\": \"\",\n           \"inferred_belief\": \"\"\n       }\n   ],\n   \"reasoning_summary\": \"Contribution based on group trend stability and own recent behavior. Predictions for A022 and A028 are based on their recent contribution patterns.\"\n}"
+  },
+  {
+    "round_id": 54,
+    "agent_id": "A004",
+    "agent_type": "LLMAgent_notom",
+    "raw_response": "{\n  \"own_contribution\": 6,\n   \"predictions\": [\n       {\n           \"target_agent_id\": \"A011\",\n           \"predicted_contribution\": 2,\n           \"confidence\": 0.8,\n           \"inferred_type\": \"\",\n           \"inferred_belief\": \"\"\n       },\n       {\n           \"target_agent_id\": \"A010\",\n           \"predicted_contribution\": 9,\n           \"confidence\": 0.9,\n           \"inferred_type\": \"\",\n           \"inferred_belief\": \"\"\n       }\n   ],\n   \"reasoning_summary\": \"Contribution based on recent group trend and own past behavior. Predictions for other agents are based on their recent contribution history.\"\n}"
+  }
+]

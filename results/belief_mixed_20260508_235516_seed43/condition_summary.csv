@@ -1,0 +1,2 @@
+condition,num_agents,rounds,llm_agents,use_llm,model,average_contribution,std_contribution,average_payoff,std_payoff,average_prediction_error,num_predictions,num_api_errors,final_round_average_contribution
+belief_mixed,30,200,0,False,,1.9008,0.9732,11.1405,0.8936,0.5631,69600,0,1.8
