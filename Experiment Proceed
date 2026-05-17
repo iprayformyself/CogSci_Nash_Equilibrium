@@ -1,6 +1,66 @@
-----
+# Experimental Environment
 
-baseline 
-belief_mixed
-llm_notom_mixed
-llm_tom_mixed
+# LLM Configuration
+
+The LLM conditions used the following API and model configuration:
+
+| Parameter | Value |
+| --- | --- |
+| Provider | Groq API |
+| Model | llama-3.3-70b-versatile |
+| API Type | Remote inference API |
+| Prompting Type | Structured behavioral prompting |
+| Output Type | JSON-formatted reasoning and decision output |
+
+The same LLM model was used across all LLM conditions to isolate the effect of prompt structure rather than differences in model capability.
+
+---
+
+# Experimental Conditions
+
+Four experimental conditions were tested.
+
+## 1. baseline
+
+This condition included only rule-based agents.
+
+Agent behavior was determined using predefined heuristic strategies such as:
+
+- cooperative behavior,
+- defecting behavior,
+- random contribution,
+- tit-for-tat-like adaptation,
+- and conditional cooperation.
+
+Purpose:
+
+To establish a non-cognitive baseline for comparison.
+
+---
+
+## 2. belief_mixed
+
+This condition introduced belief-based agents.
+
+These agents estimated future contributions of other agents based on historical observations and simple belief updating
+
+---
+
+## 3. llm_notom_mixed
+
+This condition included LLM agents without explicit Theory-of-Mind prompting.
+
+The LLM agents received game history and contextual information but were not instructed to reason explicitly about beliefs, intentions, or mental states of other agents.
+
+---
+
+## 4. llm_tom_mixed
+
+This condition included LLM agents with explicit Theory-of-Mind prompting.
+
+These agents were instructed to:
+
+- infer likely motivations of other agents,
+- estimate future behavior,
+- reason about cooperation patterns,
+- and predict future contributions before selecting their own contribution.
